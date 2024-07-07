@@ -1,0 +1,21 @@
+<h1>Recipe Search Results</h1>
+    <ul>
+        <% recipes.forEach(recipe => { %>
+            <li>
+                <h2><%= recipe.title %></h2>
+                <img src="<%= recipe.image %>" alt="<%= recipe.title %>" />
+                <p>Used Ingredients:</p>
+                <ul>
+                    <% recipe.usedIngredients.forEach(ingredient => { %>
+                        <li><%= ingredient.name %>: <%= ingredient.amount %> <%= ingredient.unit %></li>
+                    <% }) %>
+                </ul>
+                <p>Missed Ingredients:</p>
+                <ul>
+                    <% recipe.missedIngredients.forEach(ingredient => { %>
+                        <li><%= ingredient.name %>: <%= ingredient.amount %> <%= ingredient.unit %></li>
+                    <% }) %>
+                </ul>
+            </li>
+        <% }) %>
+    </ul>
