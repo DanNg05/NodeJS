@@ -15,11 +15,14 @@ const PORT = 5000 || process.env.PORT;
 connectDB();
 
 app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+
 
 // register view engine
 app.use(expressLayout);
 app.set('view engine', 'ejs');
 app.set('layout', './layouts/main')
+
 
 
 app.use('/', require('./server/routes/main'))

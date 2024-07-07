@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Post = require('../models/post');
+// const Post = require('../models/post');
 const { fetchRecipesByIngredients } = require('./recipeAPI');
 
 
@@ -14,9 +14,13 @@ router.get('/about', (req, res) => {
 })
 
 router.post('/search', async (req, res) => {
-  // const ingredients = req.body.ingredients; // Expecting an array of ingredients
-  const ingredients = ["onion", "chicken breast"]
+  // console.log(req.body.ingredients)
+  let ingredients = req.body.ingredients; // Expecting an array of ingredients
+  // console.log(req.body)
+  // const ingredients = ["onion", "chicken breast"]
 
+  ingredients = ingredients.split(',');
+  console.log(ingredients)
   if (!ingredients || ingredients.length === 0) {
       return res.status(400).json({ error: 'Ingredients are required' });
   }
@@ -31,16 +35,14 @@ router.post('/search', async (req, res) => {
   }
 });
 
-router.get('/search', (req,res) => {
+
+
+router.get('/recipes/create', (req,res) => {
   res.render('search')
 })
-// function insertPostData () {
-//   Post.insertMany([
-//     {
-//       title: "Hello there",
-//       body: "I dont know what to do"
-//     }
-//   ])
-// }
-// insertPostData();
+
+router.post('/recipes', (req, res) => {
+  console.log(req.body)
+})
+
 module.exports = router;
