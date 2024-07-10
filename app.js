@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(expressLayout);
 app.set('view engine', 'ejs');
 app.set('layout', './layouts/main')
-
+// app.set('view', path.join(__dirname, 'views/mains'));
 
 
 app.use('/', require('./server/routes/main'))
