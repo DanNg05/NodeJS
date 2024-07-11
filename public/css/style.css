@@ -1,3 +1,10 @@
+ul {
+  list-style-type: none;
+}
 /* body {
   background-color: aqua;
 } */
+.suggested-ingredient:hover {
+  background-color: bisque;
+  cursor: pointer;
+}
