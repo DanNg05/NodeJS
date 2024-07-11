@@ -1,0 +1,176 @@
+
+const cookingIngredients = [
+  // Meats
+  "Ground beef",
+  "Steak",
+  "Roast",
+  "Ribs",
+  "Brisket",
+  "Pork chops",
+  "Bacon",
+  "Sausage",
+  "Ham",
+  "Pork shoulder",
+  "Whole chicken",
+  "Chicken breasts",
+  "Chicken thighs",
+  "Chicken drumsticks",
+  "Chicken wings",
+  "Turkey",
+  "Lamb",
+  "Fish",
+  "Shrimp",
+  "Crab",
+  "Lobster",
+  "Duck",
+  "Goat",
+  "Veal",
+
+  // Vegetables
+  "Carrots",
+  "Potatoes",
+  "Tomatoes",
+  "Onions",
+  "Garlic",
+  "Broccoli",
+  "Cauliflower",
+  "Spinach",
+  "Kale",
+  "Lettuce",
+  "Bell peppers",
+  "Cucumbers",
+  "Zucchini",
+  "Squash",
+  "Mushrooms",
+  "Eggplant",
+  "Green beans",
+  "Peas",
+  "Corn",
+  "Cabbage",
+  "Celery",
+  "Asparagus",
+  "Brussels sprouts",
+  "Artichokes",
+  "Leeks",
+  "Radishes",
+  "Turnips",
+  "Sweet potatoes",
+  "Beets",
+  "Pumpkin",
+
+  // Fruits
+  "Apples",
+  "Bananas",
+  "Oranges",
+  "Grapes",
+  "Strawberries",
+  "Blueberries",
+  "Raspberries",
+  "Pineapple",
+  "Mango",
+  "Peaches",
+  "Plums",
+  "Cherries",
+  "Watermelon",
+  "Cantaloupe",
+  "Honeydew",
+  "Kiwis",
+  "Pears",
+  "Lemons",
+  "Limes",
+  "Avocado",
+
+  // Dairy
+  "Milk",
+  "Butter",
+  "Cheese",
+  "Yogurt",
+  "Cream",
+  "Sour cream",
+  "Cottage cheese",
+  "Cream cheese",
+
+  // Grains and Starches
+  "Rice",
+  "Pasta",
+  "Bread",
+  "Oats",
+  "Quinoa",
+  "Barley",
+  "Cornmeal",
+  "Flour",
+  "Tortillas",
+  "Noodles",
+
+  // Legumes
+  "Beans",
+  "Lentils",
+  "Chickpeas",
+  "Peas",
+  "Soybeans",
+
+  // Nuts and Seeds
+  "Almonds",
+  "Peanuts",
+  "Walnuts",
+  "Cashews",
+  "Pistachios",
+  "Sunflower seeds",
+  "Pumpkin seeds",
+  "Chia seeds",
+  "Flax seeds",
+
+  // Oils and Fats
+  "Olive oil",
+  "Vegetable oil",
+  "Canola oil",
+  "Butter",
+  "Margarine",
+  "Lard",
+  "Coconut oil",
+  "Sesame oil"
+];
+
+const selectedIngredients = document.querySelector('.selected-ingredients');
+const ingredientsInput = document.getElementById("ingredients");
+const suggestedIngredients = document.querySelector(".suggested-ingredients");
+ingredientsInput.addEventListener("input", (event) => {
+  const input = event.target.value.toLowerCase();
+  if (input) {
+    const filterIngredients = cookingIngredients.filter(ingredient => ingredient.toLowerCase().includes(input));
+    // console.log(filterIngredients);
+    let limit = 0;
+    suggestedIngredients.innerHTML = "";
+    filterIngredients.forEach(
+      filterIngredient => {
+        if (limit < 5) {
+          limit += 1;
+          const ingredient = document.createElement('li');
+          ingredient.classList = 'suggested-ingredient';
+          ingredient.innerText = filterIngredient;
+          suggestedIngredients.appendChild(ingredient);
+          ingredient.addEventListener('click', () => addSelectedIngredient(filterIngredient))
+        }
+      }
+      )
+  } else {
+    suggestedIngredients.innerHTML = ""
+  }
+})
+
+const addSelectedIngredient = (ingredient) => {
+  const selectedDiv = document.createElement('div');
+  const selectedIngredient = document.createElement('li');
+  const deleteSign = document.createElement('span');
+
+  deleteSign.innerHTML = '<i class="fa-solid fa-x"></i>'
+
+  selectedIngredient.innerHTML = ingredient;
+
+  selectedDiv.appendChild(selectedIngredient);
+  selectedDiv.appendChild(deleteSign);
+
+  selectedIngredients.appendChild(selectedDiv);
+  ingredientsInput.value = '';
+  suggestedIngredients.innerHTML = '';
+}

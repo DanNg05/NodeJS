@@ -2,5 +2,11 @@
     <form action="/search" method="POST">
       <label for="ingredients">Enter ingredients:</label>
       <input type="text" id="ingredients" name="ingredients" autocomplete="off">
+      <div>
+        <ul class="suggested-ingredients"></ul>
+      </div>
+      <div>
+        <ul class="selected-ingredients"></ul>
+      </div>
       <button type="submit">Search</button>
     </form>
