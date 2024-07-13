@@ -5,17 +5,20 @@ require('dotenv').config();
 
 // POST REQUEST FOR RECIPES
 const recipePost = async (req, res) => {
-  let ingredients = req.body.ingredients; // Expecting an array of ingredients
 
+  // const ingredient = document.querySelector('#ingredients');
+  // console.log(ingredient.value);
+  let ingredients = req.body.ingredients; // Expecting an array of ingredients
+  console.log(req.body)
   ingredients = ingredients.split(',');
-  console.log(ingredients)
+  // console.log(ingredients)
   if (!ingredients || ingredients.length === 0) {
       return res.status(400).json({ error: 'Ingredients are required' });
   }
 
   try {
       const recipes = await fetchRecipesByIngredients(ingredients);
-      console.log(recipes);
+      // console.log(recipes);
 
       res.render('recipes', { recipes });
   } catch (error) {

@@ -1,4 +1,3 @@
-
 const cookingIngredients = [
   // Meats
   "Ground beef",
@@ -131,46 +130,67 @@ const cookingIngredients = [
   "Sesame oil"
 ];
 
-const selectedIngredients = document.querySelector('.selected-ingredients');
-const ingredientsInput = document.getElementById("ingredients");
-const suggestedIngredients = document.querySelector(".suggested-ingredients");
-ingredientsInput.addEventListener("input", (event) => {
-  const input = event.target.value.toLowerCase();
-  if (input) {
-    const filterIngredients = cookingIngredients.filter(ingredient => ingredient.toLowerCase().includes(input));
-    // console.log(filterIngredients);
-    let limit = 0;
-    suggestedIngredients.innerHTML = "";
-    filterIngredients.forEach(
-      filterIngredient => {
-        if (limit < 5) {
-          limit += 1;
-          const ingredient = document.createElement('li');
-          ingredient.classList = 'suggested-ingredient';
-          ingredient.innerText = filterIngredient;
-          suggestedIngredients.appendChild(ingredient);
-          ingredient.addEventListener('click', () => addSelectedIngredient(filterIngredient))
-        }
-      }
-      )
-  } else {
-    suggestedIngredients.innerHTML = ""
-  }
-})
+// const selectedIngredients = document.querySelector('.selected-ingredients');
+// const ingredientsInput = document.getElementById("ingredients");
+// const suggestedIngredients = document.querySelector(".suggested-ingredients");
+// ingredientsInput.addEventListener("input", (event) => {
+//   const input = event.target.value.toLowerCase();
+//   if (input) {
+//     const filterIngredients = cookingIngredients.filter(ingredient => ingredient.toLowerCase().includes(input));
+//     // console.log(filterIngredients);
+//     let limit = 0;
+//     suggestedIngredients.innerHTML = "";
+//     filterIngredients.forEach(
+//       filterIngredient => {
+//         if (limit < 5) {
+//           limit += 1;
+//           const ingredient = document.createElement('li');
+//           ingredient.classList = 'suggested-ingredient';
+//           ingredient.innerText = filterIngredient;
+//           suggestedIngredients.appendChild(ingredient);
+//           ingredient.addEventListener('click', () => addSelectedIngredient(filterIngredient))
+//         }
+//       }
+//       )
+//   } else {
+//     suggestedIngredients.innerHTML = ""
+//   }
+// })
 
-const addSelectedIngredient = (ingredient) => {
-  const selectedDiv = document.createElement('div');
-  const selectedIngredient = document.createElement('li');
-  const deleteSign = document.createElement('span');
+// const addSelectedIngredient = (ingredient) => {
+//   const selectedDiv = document.createElement('div');
+//   selectedDiv.classList.add('d-flex')
 
-  deleteSign.innerHTML = '<i class="fa-solid fa-x"></i>'
+//   const selectedIngredient = document.createElement('li');
+//   selectedIngredient.classList.add('selected-ingredient-li')
+//   const deleteSign = document.createElement('span');
 
-  selectedIngredient.innerHTML = ingredient;
+//   deleteSign.innerHTML = '<i class="fa-solid fa-x"></i>'
 
-  selectedDiv.appendChild(selectedIngredient);
-  selectedDiv.appendChild(deleteSign);
+//   selectedIngredient.innerHTML = ingredient;
 
-  selectedIngredients.appendChild(selectedDiv);
-  ingredientsInput.value = '';
-  suggestedIngredients.innerHTML = '';
-}
+//   selectedDiv.appendChild(selectedIngredient);
+//   selectedDiv.appendChild(deleteSign);
+
+//   selectedIngredients.appendChild(selectedDiv);
+//   ingredientsInput.value = '';
+//   suggestedIngredients.innerHTML = '';
+
+//   deleteSign.addEventListener('click', () => {
+//     if (selectedDiv) {
+//       selectedDiv.parentElement.removeChild(selectedDiv);
+//     }
+//   })
+//   gatherData();
+// }
+
+// let data = [];
+// const gatherData = () => {
+//   const selectedIngredients = document.querySelectorAll('.selected-ingredient-li');
+//   selectedIngredients.forEach(ingredient => {
+//     const context = ingredient.innerHTML;
+//     // console.log(context);
+//     data.push(context);
+//     console.log(data)
+//   })
+// }
