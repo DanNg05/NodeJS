@@ -1,0 +1,11 @@
+<h1>Recipes</h1>
+<ul>
+    <% recipes.forEach(recipe => { %>
+        <li>
+            <h2><%= recipe.title %></h2>
+            <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+            <p>Used Ingredients: <%= recipe.usedIngredientCount %></p>
+            <p>Missed Ingredients: <%= recipe.missedIngredientCount %></p>
+        </li>
+    <% }); %>
+</ul>

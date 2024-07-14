@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+require('dotenv').config();
+const axios = require('axios');
+
 // const Post = require('../models/post');
 const {
   recipePost
@@ -14,10 +17,11 @@ router.get('/about', (req, res) => {
   res.render('about')
 })
 
-router.post('/search', recipePost);
+// router.post('/search', recipePost);
 
+router.post('/recipes', recipePost);
 
-
+// router.post('/recipes', recipePost)
 
 router.get('/recipes/create', (req,res) => {
   res.render('search')
