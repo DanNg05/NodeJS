@@ -189,17 +189,27 @@ recipeBtn.addEventListener('click', () => {
   const data = Array.from(ingredientsLi).map(li => li.innerHTML);
 
   fetch('/recipes', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ data }),
-      })
-      .then(response => response.json())
-      .then(result => {
-        console.log('Success:', result);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ data }),
+})
+    .then(response => {
+    // Redirect to the rendered page if the response is HTML
+    if (response.ok) {
+        return response.text().then(html => {
+            document.open();
+            document.write(html);
+            document.close();
+        });
+    } else {
+        return response.json().then(error => {
+            console.error('Error:', error);
+        });
+    }
+})
+.catch(error => {
+    console.error('Error:', error);
+});
     })
