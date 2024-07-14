@@ -18,6 +18,8 @@ connectDB();
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 
+// connect with fetch
+app.use(express.json());
 
 //bootstrap, fontawesome
 app.use('/css', express.static(path.join(__dirname, 'node_modules/@fortawesome/fontawesome-free/css')));
@@ -33,6 +35,7 @@ app.use("/",express.static("./node_modules/bootstrap/dist/"));
 app.use(expressLayout);
 app.set('view engine', 'ejs');
 app.set('layout', './layouts/main')
+app.set('views', path.join(__dirname, 'views'));
 // app.set('view', path.join(__dirname, 'views/mains'));
 
 

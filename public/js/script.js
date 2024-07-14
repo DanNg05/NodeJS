@@ -130,67 +130,76 @@ const cookingIngredients = [
   "Sesame oil"
 ];
 
-// const selectedIngredients = document.querySelector('.selected-ingredients');
-// const ingredientsInput = document.getElementById("ingredients");
-// const suggestedIngredients = document.querySelector(".suggested-ingredients");
-// ingredientsInput.addEventListener("input", (event) => {
-//   const input = event.target.value.toLowerCase();
-//   if (input) {
-//     const filterIngredients = cookingIngredients.filter(ingredient => ingredient.toLowerCase().includes(input));
-//     // console.log(filterIngredients);
-//     let limit = 0;
-//     suggestedIngredients.innerHTML = "";
-//     filterIngredients.forEach(
-//       filterIngredient => {
-//         if (limit < 5) {
-//           limit += 1;
-//           const ingredient = document.createElement('li');
-//           ingredient.classList = 'suggested-ingredient';
-//           ingredient.innerText = filterIngredient;
-//           suggestedIngredients.appendChild(ingredient);
-//           ingredient.addEventListener('click', () => addSelectedIngredient(filterIngredient))
-//         }
-//       }
-//       )
-//   } else {
-//     suggestedIngredients.innerHTML = ""
-//   }
-// })
+const selectedIngredients = document.querySelector('.selected-ingredients');
+const ingredientsInput = document.getElementById("ingredients");
+const suggestedIngredients = document.querySelector(".suggested-ingredients");
+ingredientsInput.addEventListener("input", (event) => {
+  const input = event.target.value.toLowerCase();
+  if (input) {
+    const filterIngredients = cookingIngredients.filter(ingredient => ingredient.toLowerCase().includes(input));
+    // console.log(filterIngredients);
+    let limit = 0;
+    suggestedIngredients.innerHTML = "";
+    filterIngredients.forEach(
+      filterIngredient => {
+        if (limit < 5) {
+          limit += 1;
+          const ingredient = document.createElement('li');
+          ingredient.classList = 'suggested-ingredient';
+          ingredient.innerText = filterIngredient;
+          suggestedIngredients.appendChild(ingredient);
+          ingredient.addEventListener('click', () => addSelectedIngredient(filterIngredient))
+        }
+      }
+      )
+  } else {
+    suggestedIngredients.innerHTML = ""
+  }
+})
 
-// const addSelectedIngredient = (ingredient) => {
-//   const selectedDiv = document.createElement('div');
-//   selectedDiv.classList.add('d-flex')
+const addSelectedIngredient = (ingredient) => {
+  const selectedDiv = document.createElement('div');
+  selectedDiv.classList.add('d-flex')
 
-//   const selectedIngredient = document.createElement('li');
-//   selectedIngredient.classList.add('selected-ingredient-li')
-//   const deleteSign = document.createElement('span');
+  const selectedIngredient = document.createElement('li');
+  selectedIngredient.classList.add('selected-ingredient-li')
+  const deleteSign = document.createElement('span');
 
-//   deleteSign.innerHTML = '<i class="fa-solid fa-x"></i>'
+  deleteSign.innerHTML = '<i class="fa-solid fa-x"></i>'
 
-//   selectedIngredient.innerHTML = ingredient;
+  selectedIngredient.innerHTML = ingredient;
 
-//   selectedDiv.appendChild(selectedIngredient);
-//   selectedDiv.appendChild(deleteSign);
+  selectedDiv.appendChild(selectedIngredient);
+  selectedDiv.appendChild(deleteSign);
 
-//   selectedIngredients.appendChild(selectedDiv);
-//   ingredientsInput.value = '';
-//   suggestedIngredients.innerHTML = '';
+  selectedIngredients.appendChild(selectedDiv);
+  ingredientsInput.value = '';
+  suggestedIngredients.innerHTML = '';
 
-//   deleteSign.addEventListener('click', () => {
-//     if (selectedDiv) {
-//       selectedDiv.parentElement.removeChild(selectedDiv);
-//     }
-//   })
-//   gatherData();
-// }
+  deleteSign.addEventListener('click', () => {
+    if (selectedDiv) {
+      selectedDiv.parentElement.removeChild(selectedDiv);
+    }
+  })
+}
 
-// let data = [];
-// const gatherData = () => {
-//   const selectedIngredients = document.querySelectorAll('.selected-ingredient-li');
-//   selectedIngredients.forEach(ingredient => {
-//     const context = ingredient.innerHTML;
-//     // console.log(context);
-//     data.push(context);
-//     console.log(data)
-//   })
-// }
+const recipeBtn = document.querySelector('.recipe-btn')
+recipeBtn.addEventListener('click', () => {
+  const ingredientsLi = document.querySelectorAll('.selected-ingredient-li')
+  const data = Array.from(ingredientsLi).map(li => li.innerHTML);
+
+  fetch('/recipes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data }),
+      })
+      .then(response => response.json())
+      .then(result => {
+        console.log('Success:', result);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    })
