@@ -1,11 +1,14 @@
-<h1>Recipes</h1>
-<ul>
-    <% recipes.forEach(recipe => { %>
-        <li>
-            <h2><%= recipe.title %></h2>
-            <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
-            <p>Used Ingredients: <%= recipe.usedIngredientCount %></p>
-            <p>Missed Ingredients: <%= recipe.missedIngredientCount %></p>
-        </li>
-    <% }); %>
-</ul>
+<div class="container">
+  <h1><%= recipe.title %></h1>
+      <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+      <p><%- recipe.summary %></p>
+      <h2>Ingredients</h2>
+      <ul>
+          <% recipe.extendedIngredients.forEach(ingredient => { %>
+              <li><%= ingredient.original %></li>
+          <% }); %>
+      </ul>
+      <h2>Instructions</h2>
+      <p><%= recipe.instructions %></p>
+      <a href="/recipes/create">Back to search</a>
+  </div>
