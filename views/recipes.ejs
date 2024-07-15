@@ -3,13 +3,8 @@
         <% recipes.forEach(recipe => { %>
             <li>
                 <h2><%= recipe.title %></h2>
+                <a href="/recipes/<%= recipe.id %>">View Recipe</a>
                 <img src="<%= recipe.image %>" alt="<%= recipe.title %>" />
-                <p>Used Ingredients:</p>
-                <ul>
-                    <% recipe.usedIngredients.forEach(ingredient => { %>
-                        <li><%= ingredient.name %>: <%= ingredient.amount %> <%= ingredient.unit %></li>
-                    <% }) %>
-                </ul>
                 <p>Missed Ingredients:</p>
                 <ul>
                     <% recipe.missedIngredients.forEach(ingredient => { %>
