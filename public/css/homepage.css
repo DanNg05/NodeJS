@@ -1,0 +1,83 @@
+.homepage-h1, .homepage-subh1 {
+  color: bisque;
+  text-shadow: 2px 2px grey;
+}
+
+.homepage-subh1 {
+  font-size: 60px;
+}
+
+.homepage-h1-box {
+  background-image: url('../img/background-homepage.jpg');
+  background-position: center;
+  background-size: cover;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.homepage-btn-title {
+  border-radius: 10px;
+  text-decoration: none;
+  padding: 15px;
+  background-color: beige;
+  border-radius: 15px;
+  box-shadow: 2px 2px grey;
+  color: black;
+  font-size: 30px;
+}
+
+.homepage-hiw-title{
+  font-size: 100px;
+  margin-bottom: 40px;
+}
+
+#homepage-how-it-works {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.fa-arrow-right {
+  font-size: 100px;
+}
+
+.step-title {
+  padding-top: 30px;
+  font-size: 30px;
+}
+
+.step-sub {
+  font-size: 25px;
+  width: 500px;
+  text-align: center;
+}
+
+.recipe-search-div {
+  background-image: url('../img/recipes-search.jpg');
+  background-size: cover;
+  width: 50%;
+  height: 700px;
+  background-position: center;
+}
+
+.calories-search-div {
+  background-image: url('../img/calories-search.jpg');
+  background-size: cover;
+  width: 50%;
+  height: 700px;
+  background-position: center;
+}
+
+#homepage-recipes-search, #homepage-calories-search {
+  text-decoration: none;
+  font-size: 45px;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: rgba(245, 245, 220, 0.858);
+  box-shadow: 3px 3px grey;
+  color: rgb(39, 170, 227);
+}
