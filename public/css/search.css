@@ -25,6 +25,7 @@
 .suggested-ingredient:hover {
   background-color: bisque;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .selected-ingredients {
@@ -70,4 +71,10 @@
   margin-top: 30px;
   color: maroon;
   text-shadow: 1px 1px grey;
+}
+
+.warning-span {
+  color: red;
+  text-shadow: 2px 2px black;
+  font-size: 25px;
 }

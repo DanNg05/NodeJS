@@ -91,3 +91,13 @@
   box-shadow: 3px 3px grey;
   color: maroon;
 }
+
+#web-title {
+  font-family: "Kalnia Glaze", serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+  text-decoration: none;
+  font-size: 80px;
+}
