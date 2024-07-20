@@ -72,12 +72,22 @@
   background-position: center;
 }
 
-#homepage-recipes-search, #homepage-calories-search {
+#homepage-recipes-search {
   text-decoration: none;
   font-size: 45px;
   padding: 20px;
   border-radius: 15px;
-  background-color: rgba(245, 245, 220, 0.858);
+  background-color: rgba(245, 245, 220, 0.9);
   box-shadow: 3px 3px grey;
   color: rgb(39, 170, 227);
+}
+
+#homepage-calories-search {
+  text-decoration: none;
+  font-size: 45px;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: rgba(75, 220, 97, 0.917);
+  box-shadow: 3px 3px grey;
+  color: maroon;
 }

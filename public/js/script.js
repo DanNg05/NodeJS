@@ -159,12 +159,12 @@ ingredientsInput.addEventListener("input", (event) => {
 
 const addSelectedIngredient = (ingredient) => {
   const selectedDiv = document.createElement('div');
-  selectedDiv.classList.add('d-flex')
+  selectedDiv.classList.add('selected-div');
 
   const selectedIngredient = document.createElement('li');
   selectedIngredient.classList.add('selected-ingredient-li')
   const deleteSign = document.createElement('span');
-
+  deleteSign.classList.add('delete-btns')
   deleteSign.innerHTML = '<i class="fa-solid fa-x"></i>'
 
   selectedIngredient.innerHTML = ingredient;

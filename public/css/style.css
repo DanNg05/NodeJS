@@ -1,6 +1,6 @@
 
 @import url('homepage.css');
-
+@import url('search_recipes.css');
 
 ul {
   list-style-type: none;
@@ -8,7 +8,3 @@ ul {
 /* body {
   background-color: aqua;
 } */
-.suggested-ingredient:hover {
-  background-color: bisque;
-  cursor: pointer;
-}
