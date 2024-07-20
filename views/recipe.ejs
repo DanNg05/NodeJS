@@ -1,14 +1,43 @@
-<div class="container">
-  <h1><%= recipe.title %></h1>
+<div class="container" style="margin-top: 100px;">
+  <div class="row">
+    <!-- LEFT SIDE - IMAGE -->
+    <div class="col-5">
       <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
-      <p><%- recipe.summary %></p>
-      <h2>Ingredients</h2>
-      <ul>
-          <% recipe.extendedIngredients.forEach(ingredient => { %>
-              <li><%= ingredient.original %></li>
-          <% }); %>
-      </ul>
-      <h2>Instructions</h2>
-      <p><%= recipe.instructions %></p>
-      <a href="/recipes/create">Back to search</a>
+    </div>
+
+    <!-- RIGHT SIDE - CONTENT -->
+    <div class="col-7" style="padding-left: 50px;">
+
+      <!-- TITLE AND SUMMARY -->
+      <div class="recipe-top">
+        <h1 style="font-style: italic; text-decoration: underline;"><%= recipe.title %></h1>
+        <p><%- recipe.summary %></p>
+        <div class="d-flex justify-content-between">
+          <p><i class="fa-regular fa-clock"></i> Ready Time : <%= recipe.readyInMinutes %> minutes</p>
+          <p> <i class="fa-solid fa-utensils"></i> Servings: <%= recipe.servings %> </p>
+        </div>
+      </div>
+
+      <!-- INGREDIENTS -->
+      <div style="border-bottom: 10px double rgb(33, 153, 223); padding-left: 50px;">
+        <h2 style="font-style: italic; text-decoration: underline;">Ingredients</h2>
+            <ul style="list-style-type: circle;">
+                <% recipe.extendedIngredients.forEach(ingredient => { %>
+                    <li><%= ingredient.original %></li>
+                <% }); %>
+            </ul>
+      </div>
+
+      <!-- INSTRUCTIONS -->
+      <div style="padding-left: 50px; margin-bottom: 50px;">
+        <h2 style="font-style: italic; text-decoration: underline;">Instructions</h2>
+        <p><%= recipe.instructions %></p>
+      </div>
+
+      <!-- BACK BUTTON -->
+      <div class="d-flex justify-content-center">
+        <a id="back-btn" href="/recipes/create">BACK TO SEARCH</a>
+      </div>
+    </div>
   </div>
+</div>

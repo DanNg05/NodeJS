@@ -1,0 +1,11 @@
+
+@import url('homepage.css');
+@import url('search_recipes.css');
+@import url('search_recipes_result.css');
+@import url('search_recipe.css');
+ul {
+  list-style-type: none;
+}
+/* body {
+  background-color: aqua;
+} */

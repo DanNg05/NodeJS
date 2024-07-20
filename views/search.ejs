@@ -1,12 +1,46 @@
-<h2>Search for Recipes</h2>
-    <!-- <form action="/search" method="POST" id="recipe-form"> -->
-      <label for="ingredients">Enter ingredients:</label>
-      <input type="text" id="ingredients" name="ingredients" autocomplete="off">
-      <div>
-        <ul class="suggested-ingredients"></ul>
+<h2 style="text-align: center; margin-top: 40px; font-size: 100px;">SEARCH FOR RECIPES</h2>
+
+    <div class="d-flex justify-content-center flex-column align-items-center form-div">
+      <div class="d-flex justify-content-between flex-column">
+        <label class="ingredients-label" for="ingredients">Find delicious recipes with your ingredients:</label>
+        <input type="text" id="ingredients" name="ingredients" autocomplete="off" placeholder="Type your ingredients here...">
       </div>
-      <div>
+
+      <!-- DISPLAY DROP-DOWN SUGGESTED INGREDIENTS -->
+        <ul style="width: 762px;" class="suggested-ingredients"></ul>
+
+      <!-- DISPLAY SELECTED INGREDIENTS -->
         <ul class="selected-ingredients"></ul>
+
+      <div>
+        <button class="recipe-btn" type="submit">FIND RECIPES</button>
       </div>
-      <button class="recipe-btn" type="submit">Search</button>
-    <!-- </form> -->
+
+    </div>
+
+    <div id="homepage-how-it-works">
+      <p class="homepage-hiw-title">How it works</p>
+      <div class="search-algorithm d-flex justify-content-between align-items-center">
+        <div class="step-1 d-flex justify-content-center flex-column align-items-center">
+          <img src="/img/step-1-homepage.jpg" alt="step-1-homepage" width="300" height="300">
+          <strong class="step-title">YOUR INGREDIENTS</strong>
+          <p class="step-sub">Use ingredients you have in your fridge</p>
+        </div>
+
+        <i class="fa-solid fa-arrow-right"></i>
+
+        <div class="step-2 d-flex justify-content-center flex-column align-items-center">
+          <img src="/img/step-2-homepage.jpg" alt="step-1-homepage" width="300" height="300">
+          <strong class="step-title">FIND RECIPES</strong>
+          <p class="step-sub">Find and select your favourite recipes. You can save in your library</p>
+        </div>
+
+        <i class="fa-solid fa-arrow-right"></i>
+
+        <div class="step-3 d-flex justify-content-center flex-column align-items-center">
+          <img src="/img/step-3-homepage.jpg" alt="step-1-homepage" width="300" height="300">
+          <strong class="step-title">FIND RECIPES</strong>
+          <p class="step-sub">Follow the instructions and enjoy your delicious meals</p>
+        </div>
+      </div>
+    </div>
