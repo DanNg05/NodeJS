@@ -1,0 +1,14 @@
+.recipe-top {
+  padding: 15px;
+  border-top: 10px double rgb(33, 153, 223);
+  border-bottom: 10px double rgb(33, 153, 223);
+  padding-left: 40px;
+}
+
+#back-btn {
+  text-decoration: none;
+  padding: 20px;
+  color: wheat;
+  background-color: maroon;
+  border-radius: 15px;
+}

@@ -1,13 +1,12 @@
 <div class="container">
-  <h2>Recipe Search Results</h2>
-    <ul>
+  <h2 style="text-align: center; margin-top: 50px; font-size: 40px;">There are <%= recipes.length %> recipes</h2>
+    <ul class="result-recipes">
         <% recipes.forEach(recipe => { %>
-            <li>
-                <h2><%= recipe.title %></h2>
-                <a href="/recipes/<%= recipe.id %>">View Recipe</a>
-                <img src="<%= recipe.image %>" alt="<%= recipe.title %>" />
-                <p>Missed Ingredients:</p>
-                <ul>
+            <li class="result-recipe">
+                <a href="/recipes/<%= recipe.id %>"><img src="<%= recipe.image %>" width="400px" alt="<%= recipe.title %>" /></a>
+                <h3><%= recipe.title %></h3>
+                <p style="font-style: italic; text-decoration: underline;">Missed Ingredients:</p>
+                <ul style="list-style-type: circle;">
                     <% recipe.missedIngredients.forEach(ingredient => { %>
                         <li><%= ingredient.name %>: <%= ingredient.amount %> <%= ingredient.unit %></li>
                     <% }) %>
