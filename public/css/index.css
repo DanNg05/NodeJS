@@ -3,6 +3,7 @@
 @import url('search.css');
 @import url('search_recipes_result.css');
 @import url('search_recipe.css');
+@import url('signup.css');
 ul {
   list-style-type: none;
 }

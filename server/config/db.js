@@ -29,13 +29,16 @@ const uri = process.env.URI;
 
 const connectDB = async () => {
 
-  try {
-    mongoose.set('strictQuery', false);
-    const conn = await mongoose.connect(uri);
-    console.log(`Database Connected: ${conn.connection.host}`);
-  } catch (error) {
-    console.log(error);
-  }
+  // try {
+  //   mongoose.set('strictQuery', false);
+  //   const conn = await mongoose.connect(uri);
+  //   console.log(`Database Connected: ${conn.connection.host}`);
+  // } catch (error) {
+  //   console.log(error);
+  // }
+  mongoose.connect(uri)
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 }
 

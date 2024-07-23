@@ -1,3 +1,4 @@
+
 // INGREDIENTS LIST
 const cookingIngredients = [
   // Meats
@@ -231,3 +232,14 @@ recipeBtn.addEventListener('click', () => {
       warningDiv.appendChild(warningElement)
   }
     })
+
+
+  // SIGN UP AND LOG IN ACTIONS
+  const form = document.querySelector('.signup-form')
+  form.addEventListener('submit',(e) => {
+    e.preventDefault();
+
+    // get values
+    const email = form.email.value;
+    const password = form.email.value;
+  } )
