@@ -1,3 +1,5 @@
+
+// INGREDIENTS LIST
 const cookingIngredients = [
   // Meats
   "Ground beef",
@@ -133,6 +135,8 @@ const cookingIngredients = [
 const selectedIngredients = document.querySelector('.selected-ingredients');
 const ingredientsInput = document.getElementById("ingredients");
 const suggestedIngredients = document.querySelector(".suggested-ingredients");
+
+// CHECK INPUT FROM USERS TO SUGGEST INGREDIENTS AND DISPLAY
 ingredientsInput.addEventListener("input", (event) => {
   const input = event.target.value.toLowerCase();
   if (input) {
@@ -142,6 +146,7 @@ ingredientsInput.addEventListener("input", (event) => {
     suggestedIngredients.innerHTML = "";
     filterIngredients.forEach(
       filterIngredient => {
+        // LIMIT SUGGESTED INGREDIENTS AT 5
         if (limit < 5) {
           limit += 1;
           const ingredient = document.createElement('li');
@@ -157,6 +162,7 @@ ingredientsInput.addEventListener("input", (event) => {
   }
 })
 
+// SELECT SUGGESTED INGREDIENTS
 const addSelectedIngredient = (ingredient) => {
   const selectedDiv = document.createElement('div');
   selectedDiv.classList.add('selected-div');
@@ -184,32 +190,56 @@ const addSelectedIngredient = (ingredient) => {
 }
 
 const recipeBtn = document.querySelector('.recipe-btn')
+const warningDiv = document.querySelector('.warning');
+
+
+// SUBMIT FORM AND FETCH
 recipeBtn.addEventListener('click', () => {
   const ingredientsLi = document.querySelectorAll('.selected-ingredient-li')
   const data = Array.from(ingredientsLi).map(li => li.innerHTML);
 
-  fetch('/recipes', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ data }),
-})
-    .then(response => {
-    // Redirect to the rendered page if the response is HTML
-    if (response.ok) {
-        return response.text().then(html => {
-            document.open();
-            document.write(html);
-            document.close();
-        });
-    } else {
-        return response.json().then(error => {
-            console.error('Error:', error);
-        });
-    }
-})
-.catch(error => {
-    console.error('Error:', error);
-});
+  if (data.length > 0) {
+    fetch('/recipes', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ data }),
     })
+      .then(response => {
+      // Redirect to the rendered page if the response is HTML
+      if (response.ok) {
+          return response.text().then(html => {
+              document.open();
+              document.write(html);
+              document.close();
+          });
+      } else {
+          return response.json().then(error => {
+              console.error('Error:', error);
+          });
+      }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+    } else {
+      // WARNING WITH EMPTY INPUT
+      warningDiv.innerHTML = ''
+      const warningElement = document.createElement('span');
+      warningElement.classList.add('warning-span');
+      warningElement.innerHTML = 'Please input your ingredients';
+      warningDiv.appendChild(warningElement)
+  }
+    })
+
+
+  // SIGN UP AND LOG IN ACTIONS
+  const form = document.querySelector('.signup-form')
+  form.addEventListener('submit',(e) => {
+    e.preventDefault();
+
+    // get values
+    const email = form.email.value;
+    const password = form.email.value;
+  } )

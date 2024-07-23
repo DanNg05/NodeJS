@@ -1,5 +1,6 @@
 const axios = require('axios');
 require('dotenv').config();
+const User = require('../server/models/User')
 
 const SPOONACULAR_API_KEY = process.env.SPOONACULAR_API_KEY;
 
@@ -40,7 +41,59 @@ const recipePost = async (req, res) => {
   }
 }
 
+// HANDLE ERROR
+
+const handleErrors = (err) => {
+  console.log(err.message, err.code)
+  let errors = { email: '', password: ''}
+
+  // duplicate error code
+  if (err.code === 11000) {
+    errors.email = 'that email is already registered'
+    return errors;
+  }
+  // validattion errors
+  if (err.message.includes('User validation failed')) {
+    Object.values(err.errors).forEach(({properties}) => {
+      errors[properties.path] = properties.message;
+      // console.log(properties.message)
+    })
+  }
+
+  return errors
+}
+
+// AUTHENTICATION ROUTES
+const signup_get = (req, res) => {
+  res.render('signup')
+}
+
+
+const login_get = (req, res) => {
+  res.render('login')
+}
+
+const signup_post = async (req, res) => {
+  const {email, password} = req.body;
+
+  try {
+    const user = await User.create({email, password});
+    res.status(200).json(user)
+  }
+  catch (err) {
+    const errors = handleErrors(err)
+    res.status(400).json( {errors} )
+  }
+}
+
+const login_post = async (req, res) => {
+  res.send('new login')
+}
 module.exports = {
   recipesPost,
-  recipePost
+  recipePost,
+  signup_get,
+  login_get,
+  signup_post,
+  login_post
 }

@@ -6,7 +6,11 @@ const axios = require('axios');
 // const Post = require('../models/post');
 const {
   recipesPost,
-  recipePost
+  recipePost,
+  signup_get,
+  login_get,
+  signup_post,
+  login_post
 } = require('../../controllers/RecipesController')
 
 // Routes
@@ -24,6 +28,14 @@ router.get('/recipes/create', (req,res) => {
   res.render('search')
 })
 
-router.get('/recipes/:id', recipePost)
+router.get('/recipes/:id', recipePost);
+
+router.get('/signup', signup_get)
+
+router.post('/signup', signup_post)
+
+router.get('/login', login_get)
+
+router.post('/login', login_post)
 
 module.exports = router;
