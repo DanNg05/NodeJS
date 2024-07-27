@@ -1,3 +1,12 @@
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center" style="position: relative;">
   <a id="web-title" href="/">RECIPE FINDER</a>
+
+  <div class="login-signup">
+    <% if (user) { %>
+      <a href="/logout">Log out</a>
+    <% } else {%>
+    <a href="/login">Log in</a>
+    <a href="/signup" class="btn">Sign up</a>
+    <% } %>
+  </div>
 </div>

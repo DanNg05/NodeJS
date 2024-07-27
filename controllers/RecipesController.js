@@ -1,7 +1,7 @@
 const axios = require('axios');
 require('dotenv').config();
 const User = require('../server/models/User')
-
+const jwt = require('jsonwebtoken');
 const SPOONACULAR_API_KEY = process.env.SPOONACULAR_API_KEY;
 
 // POST REQUEST FOR RECIPES
@@ -31,9 +31,10 @@ const recipePost = async (req, res) => {
     const url = `https://api.spoonacular.com/recipes/${id}/information?apiKey=${SPOONACULAR_API_KEY}`;
     const response = await axios.get(url);
     const recipe = response.data;
+    const token = req.cookies.jwt;
 
     console.log(recipe)
-    res.render('recipe', {recipe})
+    res.render('recipe', {recipe, token})
 
   } catch (error) {
     console.error('Error fetching recipe:', error);
@@ -46,6 +47,17 @@ const recipePost = async (req, res) => {
 const handleErrors = (err) => {
   console.log(err.message, err.code)
   let errors = { email: '', password: ''}
+
+  // incorrect email
+  if (err.message === 'Incorrect Email') {
+    errors.email = 'that email is not registered'
+  }
+
+  // incorrect password
+  if (err.message = 'Incorrect Password') {
+    errors.password = 'that password is incorrect'
+  }
+
 
   // duplicate error code
   if (err.code === 11000) {
@@ -63,13 +75,25 @@ const handleErrors = (err) => {
   return errors
 }
 
+
+// CREATE TOKEN
+  const secret = process.env.SECRET_TOKEN;
+  const maxAge = 3 * 24 * 60 *60;
+  const createToken = (id) => {
+    return jwt.sign({ id }, secret, {
+      expiresIn: maxAge
+    })
+  }
+
 // AUTHENTICATION ROUTES
 const signup_get = (req, res) => {
+
   res.render('signup')
 }
 
 
 const login_get = (req, res) => {
+
   res.render('login')
 }
 
@@ -78,7 +102,9 @@ const signup_post = async (req, res) => {
 
   try {
     const user = await User.create({email, password});
-    res.status(200).json(user)
+    const token = createToken(user._id);
+    res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000});
+    res.status(201).json({user: user._id})
   }
   catch (err) {
     const errors = handleErrors(err)
@@ -87,7 +113,23 @@ const signup_post = async (req, res) => {
 }
 
 const login_post = async (req, res) => {
-  res.send('new login')
+  const {email, password} = req.body;
+
+  try {
+    const user = await User.login(email, password);
+    const token = createToken(user._id);
+    res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000});
+    res.status(200).json({user: user._id})
+  }
+  catch (err) {
+    const errors = handleErrors(err)
+    res.status(400).json({errors})
+  }
+}
+
+const logout_get = (req, res) => {
+  res.clearCookie('jwt');
+  res.redirect('/')
 }
 module.exports = {
   recipesPost,
@@ -95,5 +137,6 @@ module.exports = {
   signup_get,
   login_get,
   signup_post,
-  login_post
+  login_post,
+  logout_get
 }

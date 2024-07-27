@@ -1,4 +1,4 @@
-<form class="signup-form">
+<form class="new-signup">
   <h2 style="text-align: center; font-style: italic;">Sign up here</h2>
   <label for="email" class="signup-label">Email:</label>
   <input type="text" name="email" required class="input-signup"/>
@@ -9,3 +9,17 @@
   <div class="password error"></div>
   <button class="signup-btn">Sign up</button>
 </form>
+
+<!-- <script>
+  const form = document.querySelector('.new-signup');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    // get values
+    const email = form.email.value;
+    const password = form.password.value;
+
+    console.log(email, password);
+  });
+</script> -->
