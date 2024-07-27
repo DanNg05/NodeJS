@@ -42,6 +42,7 @@ app.set('views', path.join(__dirname, 'views'));
 // app.set('view', path.join(__dirname, 'views/mains'));
 
 app.get('*', checkUser)
+app.post('*', checkUser)
 app.use('/', require('./server/routes/main'))
 
 app.listen(PORT, () => {

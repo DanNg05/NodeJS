@@ -312,3 +312,31 @@ if (recipeBtn) {
       }
     });
   }
+
+
+  document.querySelectorAll('.favorite-form').forEach(form => {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault(); // Prevent the default form submission
+
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries()); // Convert FormData to a plain object
+
+      try {
+        const response = await fetch('/add-favorite', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          alert('Item added to favorites!');
+          window.location.reload();
+        } else {
+          alert('Failed to add item to favorites.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while adding to favorites.');
+      }
+    });
+  });

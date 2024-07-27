@@ -3,8 +3,16 @@
     <ul class="result-recipes">
         <% recipes.forEach(recipe => { %>
             <li class="result-recipe">
+              <div style="position: relative;">
                 <a href="/recipes/<%= recipe.id %>"><img src="<%= recipe.image %>" width="400px" alt="<%= recipe.title %>" /></a>
+                <form action="/add-favorite" method="POST" class="favorite-form" data-item-id="<%= recipe.id %>">
+                  <input type="hidden" name="userId" value="<%= user._id %>">
+                  <input type="hidden" name="recipeId" value="<%= recipe.id %>">
+                  <!-- <button class="fav-btn" type="submit"><i class="fa-regular fa-bookmark"></i></button> -->
+                </form>
+              </div>
                 <h3><%= recipe.title %></h3>
+                <p><%= user._id %></p>
                 <p style="font-style: italic; text-decoration: underline;">Missed Ingredients:</p>
                 <ul style="list-style-type: circle;">
                     <% recipe.missedIngredients.forEach(ingredient => { %>

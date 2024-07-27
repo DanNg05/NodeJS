@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 const { isEmail } = require('validator');
 const bcrypt = require('bcrypt')
+const FavoriteItem = require('./Favourite');
+const Schema = mongoose.Schema;
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -14,7 +16,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please enter the password'],
     minLength: [6, 'Minimum password is 6 characters']
-  }
+  },
+  favorites: [{ type: String }]
 })
 
 

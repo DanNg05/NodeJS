@@ -3,7 +3,7 @@ require('dotenv').config();
 const User = require('../server/models/User')
 const jwt = require('jsonwebtoken');
 const SPOONACULAR_API_KEY = process.env.SPOONACULAR_API_KEY;
-
+const FavoriteItem = require('../server/models/Favourite')
 // POST REQUEST FOR RECIPES
 const recipesPost = async (req, res) => {
     const data = req.body.data;
@@ -17,8 +17,10 @@ const recipesPost = async (req, res) => {
       const response = await axios.get(url);
       const recipes = response.data;
       console.log('Fetched recipes:', recipes);
+      const token = req.cookies.jwt;
 
-      res.render('recipes', { recipes });
+
+      res.render('recipes', { recipes, token });
   } catch (error) {
       console.error('Error fetching recipes:', error);
       res.status(500).json({ error: 'Failed to fetch recipes' });
@@ -87,14 +89,16 @@ const handleErrors = (err) => {
 
 // AUTHENTICATION ROUTES
 const signup_get = (req, res) => {
+  const token = req.cookies.jwt;
 
-  res.render('signup')
+  res.render('signup', {token})
 }
 
 
 const login_get = (req, res) => {
+  const token = req.cookies.jwt;
 
-  res.render('login')
+  res.render('login', {token})
 }
 
 const signup_post = async (req, res) => {
@@ -128,8 +132,28 @@ const login_post = async (req, res) => {
 }
 
 const logout_get = (req, res) => {
-  res.clearCookie('jwt');
+  res.clearCookies('jwt');
   res.redirect('/')
+}
+
+const favorite_add = async (req, res) => {
+  try {
+    const { userId, recipeId } = req.body;
+
+
+    // Add item to the user's favorites
+    await User.findByIdAndUpdate(
+      userId,
+      { $addToSet: { favorites: recipeId } },
+      { new: true }
+    );
+
+    // res.status(200).json({ success: true });
+    // window.location.reload;
+  } catch (err) {
+    console.error('Error adding favorite:', err);
+    res.status(500).send('Error adding favorite');
+  }
 }
 module.exports = {
   recipesPost,
@@ -138,5 +162,6 @@ module.exports = {
   login_get,
   signup_post,
   login_post,
-  logout_get
+  logout_get,
+  favorite_add
 }

@@ -3,3 +3,17 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 40px;
 }
+
+.fa-bookmark {
+  color: aquamarine;
+  text-shadow: 2px 2px grey;
+  font-size: 20px;
+}
+
+.fav-btn {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  border: none;
+  background-color: transparent;
+}
