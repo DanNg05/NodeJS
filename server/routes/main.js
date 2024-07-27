@@ -12,7 +12,8 @@ const {
   login_get,
   signup_post,
   login_post,
-  logout_get
+  logout_get,
+  favorite_add
 } = require('../../controllers/RecipesController')
 
 // Routes
@@ -28,7 +29,9 @@ router.get('', (req, res) => {
 router.post('/recipes', recipesPost);
 
 router.get('/recipes/create', requireAuth, (req,res) => {
-  res.render('search')
+  const token = req.cookies.jwt;
+
+  res.render('search', {token})
 })
 
 // router.get('*', checkUser);
@@ -44,5 +47,7 @@ router.get('/login', login_get)
 router.post('/login', login_post)
 
 router.get('/logout', logout_get)
+
+router.post('/add-favorite', favorite_add)
 
 module.exports = router;
