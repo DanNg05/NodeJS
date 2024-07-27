@@ -137,30 +137,32 @@ const ingredientsInput = document.getElementById("ingredients");
 const suggestedIngredients = document.querySelector(".suggested-ingredients");
 
 // CHECK INPUT FROM USERS TO SUGGEST INGREDIENTS AND DISPLAY
-ingredientsInput.addEventListener("input", (event) => {
-  const input = event.target.value.toLowerCase();
-  if (input) {
-    const filterIngredients = cookingIngredients.filter(ingredient => ingredient.toLowerCase().includes(input));
-    // console.log(filterIngredients);
-    let limit = 0;
-    suggestedIngredients.innerHTML = "";
-    filterIngredients.forEach(
-      filterIngredient => {
-        // LIMIT SUGGESTED INGREDIENTS AT 5
-        if (limit < 5) {
-          limit += 1;
-          const ingredient = document.createElement('li');
-          ingredient.classList = 'suggested-ingredient';
-          ingredient.innerText = filterIngredient;
-          suggestedIngredients.appendChild(ingredient);
-          ingredient.addEventListener('click', () => addSelectedIngredient(filterIngredient))
+if (ingredientsInput) {
+  ingredientsInput.addEventListener("input", (event) => {
+    const input = event.target.value.toLowerCase();
+    if (input) {
+      const filterIngredients = cookingIngredients.filter(ingredient => ingredient.toLowerCase().includes(input));
+      // console.log(filterIngredients);
+      let limit = 0;
+      suggestedIngredients.innerHTML = "";
+      filterIngredients.forEach(
+        filterIngredient => {
+          // LIMIT SUGGESTED INGREDIENTS AT 5
+          if (limit < 5) {
+            limit += 1;
+            const ingredient = document.createElement('li');
+            ingredient.classList = 'suggested-ingredient';
+            ingredient.innerText = filterIngredient;
+            suggestedIngredients.appendChild(ingredient);
+            ingredient.addEventListener('click', () => addSelectedIngredient(filterIngredient))
+          }
         }
-      }
-      )
-  } else {
-    suggestedIngredients.innerHTML = ""
-  }
-})
+        )
+    } else {
+      suggestedIngredients.innerHTML = ""
+    }
+  })
+}
 
 // SELECT SUGGESTED INGREDIENTS
 const addSelectedIngredient = (ingredient) => {
@@ -189,57 +191,124 @@ const addSelectedIngredient = (ingredient) => {
   })
 }
 
-const recipeBtn = document.querySelector('.recipe-btn')
+const recipeBtn = document.querySelector('.recipe-btn');
 const warningDiv = document.querySelector('.warning');
 
 
 // SUBMIT FORM AND FETCH
-recipeBtn.addEventListener('click', () => {
-  const ingredientsLi = document.querySelectorAll('.selected-ingredient-li')
-  const data = Array.from(ingredientsLi).map(li => li.innerHTML);
+if (recipeBtn) {
+  recipeBtn.addEventListener('click', () => {
+    const ingredientsLi = document.querySelectorAll('.selected-ingredient-li')
+    const data = Array.from(ingredientsLi).map(li => li.innerHTML);
 
-  if (data.length > 0) {
-    fetch('/recipes', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ data }),
-    })
-      .then(response => {
-      // Redirect to the rendered page if the response is HTML
-      if (response.ok) {
-          return response.text().then(html => {
-              document.open();
-              document.write(html);
-              document.close();
-          });
+    if (data.length > 0) {
+      fetch('/recipes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data }),
+      })
+        .then(response => {
+        // Redirect to the rendered page if the response is HTML
+        if (response.ok) {
+            return response.text().then(html => {
+                document.open();
+                document.write(html);
+                document.close();
+            });
+        } else {
+            return response.json().then(error => {
+                console.error('Error:', error);
+            });
+        }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
       } else {
-          return response.json().then(error => {
-              console.error('Error:', error);
-          });
-      }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-    } else {
-      // WARNING WITH EMPTY INPUT
-      warningDiv.innerHTML = ''
-      const warningElement = document.createElement('span');
-      warningElement.classList.add('warning-span');
-      warningElement.innerHTML = 'Please input your ingredients';
-      warningDiv.appendChild(warningElement)
-  }
-    })
+        // WARNING WITH EMPTY INPUT
+        warningDiv.innerHTML = ''
+        const warningElement = document.createElement('span');
+        warningElement.classList.add('warning-span');
+        warningElement.innerHTML = 'Please input your ingredients';
+        warningDiv.appendChild(warningElement)
+    }
+      })
+}
 
 
   // SIGN UP AND LOG IN ACTIONS
-  const form = document.querySelector('.signup-form')
-  form.addEventListener('submit',(e) => {
-    e.preventDefault();
+  const form = document.querySelector('.new-signup');
+  const emailError = document.querySelector('.email.error');
+  const passwordError = document.querySelector('.password.error');
+  // console.log(form);
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-    // get values
-    const email = form.email.value;
-    const password = form.email.value;
-  } )
+      // reset errors
+      emailError.textContent = '';
+          passwordError.textContent = '';
+      // get values
+      const email = form.email.value;
+      const password = form.password.value;
+
+      try {
+        const res = await fetch('/signup', {
+          method: 'POST',
+          body: JSON.stringify({email, password}),
+          headers: {'Content-Type': 'application/json'}
+        });
+        const data = await res.json();
+        console.log(data);
+        if (data.errors) {
+          emailError.textContent = data.errors.email;
+          passwordError.textContent = data.errors.password;
+        }
+        if (data.user) {
+          location.assign('/');
+        }
+      }
+      catch (err) {
+        console.log(err)
+      }
+    });
+  }
+
+  // LOGIN
+  const loginForm = document.querySelector('.new-login');
+  const loginEmailError = document.querySelector('.login-email.error');
+  const loginPasswordError = document.querySelector('.login-password.error')
+  if (loginForm) {
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // reset errors
+      loginEmailError.textContent = '';
+      loginPasswordErrortextContent = '';
+      // get values
+      const email = loginForm.email.value;
+      const password = loginForm.password.value;
+
+      try {
+        const res = await fetch('/login', {
+          method: 'POST',
+          body: JSON.stringify({email, password}),
+          headers: {'Content-Type': 'application/json'}
+        });
+        const data = await res.json();
+        console.log(data);
+        if (data.errors) {
+          loginEmailError.textContent = data.errors.email;
+          loginPasswordError.textContent = data.errors.password;
+        }
+        if (data.user) {
+          location.assign('/');
+        }
+      }
+      catch (err) {
+        console.log(err)
+      }
+    });
+  }

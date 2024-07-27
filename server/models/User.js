@@ -24,6 +24,19 @@ userSchema.post('save', function (doc, next) {
   next();
 })
 
+// STATIC METHOD TO LOGIN USER
+userSchema.statics.login = async function(email, password) {
+  const user = await this.findOne({email});
+  if (user) {
+    const auth = await bcrypt.compare(password, user.password);
+    if (auth) {
+      return user;
+    }
+    throw Error('Incorrect Password')
+  }
+  throw Error('Incorrect Email')
+}
+
 // BEFORE DOC SAVED TO DB
 userSchema.pre('save', async function (next) {
   const salt = await bcrypt.genSalt();

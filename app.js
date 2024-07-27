@@ -5,7 +5,8 @@ const path = require('path');
 require('dotenv').config();
 const expressLayout = require('express-ejs-layouts');
 const connectDB = require('./server/config/db');
-
+const cookieParser = require('cookie-parser');
+const { checkUser } = require('./middleWare/authMiddleWare');
 
 
 const app = express();
@@ -15,8 +16,10 @@ const PORT = 5000 || process.env.PORT;
 // connect to DB
 connectDB();
 
+
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser())
 
 // connect with fetch
 app.use(express.json());
@@ -38,7 +41,7 @@ app.set('layout', './layouts/main')
 app.set('views', path.join(__dirname, 'views'));
 // app.set('view', path.join(__dirname, 'views/mains'));
 
-
+app.get('*', checkUser)
 app.use('/', require('./server/routes/main'))
 
 app.listen(PORT, () => {
